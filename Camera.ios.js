@@ -51,7 +51,8 @@ var Camera = React.createClass({
     torchMode: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
-    ])
+    ]),
+    scanning: PropTypes.bool
   },
 
   mixins: [NativeMethodsMixin],
@@ -64,6 +65,7 @@ var Camera = React.createClass({
   getDefaultProps() {
     return {
       aspect: constants.Aspect.fill,
+      scanning: false,
       type: constants.Type.back,
       orientation: constants.Orientation.auto,
       captureAudio: true,
@@ -101,6 +103,7 @@ var Camera = React.createClass({
     var style = flattenStyle([styles.base, this.props.style]);
 
     var aspect = this.props.aspect,
+        scanning = this.props.scanning,
         type = this.props.type,
         orientation = this.props.orientation,
         flashMode = this.props.flashMode,
@@ -146,6 +149,7 @@ var Camera = React.createClass({
 
     var nativeProps = merge(this.props, {
       style,
+      scanning: scanning,
       aspect: aspect,
       type: type,
       orientation: orientation,
@@ -201,6 +205,7 @@ var Camera = React.createClass({
 
 var RCTCamera = createReactNativeComponentClass({
   validAttributes: merge(ReactNativeViewAttributes.UIView, {
+    scanning: true,
     aspect: true,
     type: true,
     orientation: true,
